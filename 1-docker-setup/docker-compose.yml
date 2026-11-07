@@ -5,7 +5,7 @@ services:
     image: ${VAULT_IMAGE:-hashicorp/vault:latest}
     container_name: vault
     restart: unless-stopped
-    command: ["server", "-config=/vault/config/vault.hcl"]
+    command: ["server"]
     cap_add:
       - IPC_LOCK
     ports:
