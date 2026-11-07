@@ -1,0 +1,20 @@
+name: vault-snapshot-agent
+
+# HashiCorp Vault Agent: authenticates with AppRole and proxies API calls with the
+# auto-auth token, so backup.sh needs no token. Published on localhost only.
+services:
+  snapshot-agent:
+    image: ${VAULT_IMAGE:-hashicorp/vault:latest}
+    container_name: vault-snap-agent
+    restart: unless-stopped
+    command: ["agent", "-config=/etc/vault.d/vault_snapshot_agent.hcl"]
+    ports:
+      - "127.0.0.1:8100:8100"
+    volumes:
+      - ./config:/etc/vault.d:ro
+    networks:
+      - vault-net
+
+networks:
+  vault-net:
+    external: true

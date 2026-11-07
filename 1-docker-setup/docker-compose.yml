@@ -1,0 +1,23 @@
+name: vault-lab
+
+services:
+  vault:
+    image: ${VAULT_IMAGE:-hashicorp/vault:latest}
+    container_name: vault
+    restart: unless-stopped
+    command: ["server", "-config=/vault/config/vault.hcl"]
+    cap_add:
+      - IPC_LOCK
+    ports:
+      - "8200:8200"
+    volumes:
+      - ./config:/vault/config
+      - vault-data:/vault/file
+
+volumes:
+  vault-data:
+
+# Fixed network name so the snapshot agent in 3-backup can join it.
+networks:
+  default:
+    name: vault-net

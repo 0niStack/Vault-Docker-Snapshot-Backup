@@ -1,0 +1,5 @@
+1-docker-setup/init-keys.json
+3-backup/config/snap-roleid
+3-backup/config/snap-secretid
+3-backup/snapshots/
+3-backup/backup.log
