@@ -6,8 +6,8 @@ services:
   snapshot-agent:
     image: ${VAULT_IMAGE:-hashicorp/vault:latest}
     container_name: vault-snap-agent
-    restart: unless-stopped
-    command: ["agent", "-config=/etc/vault.d/vault_snapshot_agent.hcl"]
+    command: ["vault", "agent", "-config=/etc/vault.d/vault_snapshot_agent.hcl"]
+    user: "${SNAP_UID:-1000}:${SNAP_GID:-1000}"
     ports:
       - "127.0.0.1:8100:8100"
     volumes:
